@@ -5,7 +5,10 @@ Minimal OCR service for handwritten formulas.
 ## Install
 
 ```
-pip install -r requirements.txt
+pip install paddlepaddle-gpu==3.2.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu118/
+pip install "paddleocr[all]"
+pip install fastapi
+pip install uvicorn
 ```
 
 ## Run
