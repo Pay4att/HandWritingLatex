@@ -1,0 +1,23 @@
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# ---------- Node / Obsidian ----------
+node_modules/
+dist/
+build/
+
+# ---------- Swift / Xcode ----------
+DerivedData/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+
+# ---------- OS ----------
+.DS_Store
+Thumbs.db
+
+# ---------- Editors ----------
+.vscode/
+.idea/
