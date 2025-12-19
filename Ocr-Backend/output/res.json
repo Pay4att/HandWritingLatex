@@ -1,0 +1,5 @@
+{
+    "input_path": "test.png",
+    "page_index": null,
+    "rec_formula": "f^{\\prime}\\left(\\xi\\right)=\\frac{f\\left(b\\right)-f\\left(a\\right)}{b-a}\\Leftrightarrow f\\left(b\\right)-f\\left(a\\right)=f^{\\prime}\\left(\\xi\\right)\\left(b-a\\right)"
+}
