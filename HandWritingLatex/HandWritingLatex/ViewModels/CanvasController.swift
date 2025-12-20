@@ -6,15 +6,16 @@ final class CanvasController: NSObject, ObservableObject, PKCanvasViewDelegate {
 
     @Published private(set) var hasDrawing: Bool = false
     @Published private(set) var activeTool: CanvasTool = .pen
+    @Published private(set) var inputMode: CanvasInputMode = .touchAndPencil
 
     override init() {
         let canvasView = PKCanvasView()
-        canvasView.drawingPolicy = .anyInput
         canvasView.backgroundColor = .clear
         canvasView.isOpaque = false
         self.canvasView = canvasView
         super.init()
         canvasView.delegate = self
+        applyInputMode(.touchAndPencil)
         setPen()
     }
 
@@ -30,6 +31,10 @@ final class CanvasController: NSObject, ObservableObject, PKCanvasViewDelegate {
         canvasView.tool = tool
         PKToolPicker.sharedSelectedTool = PKEraserTool(.vector)
         activeTool = .eraser
+    }
+
+    func setInputMode(_ mode: CanvasInputMode) {
+        applyInputMode(mode)
     }
 
     func clear() {
@@ -60,5 +65,15 @@ final class CanvasController: NSObject, ObservableObject, PKCanvasViewDelegate {
 
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         hasDrawing = !canvasView.drawing.strokes.isEmpty
+    }
+
+    private func applyInputMode(_ mode: CanvasInputMode) {
+        inputMode = mode
+        switch mode {
+        case .pencilOnly:
+            canvasView.drawingPolicy = .pencilOnly
+        case .touchAndPencil:
+            canvasView.drawingPolicy = .anyInput
+        }
     }
 }

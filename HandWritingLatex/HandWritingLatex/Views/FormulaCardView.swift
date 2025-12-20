@@ -7,76 +7,71 @@ struct FormulaCardView: View {
     let onRetry: () -> Void
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack(alignment: .top, spacing: 12) {
-                Image(uiImage: item.snapshot)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 72, height: 72)
-                    .background(Color(.systemBackground))
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color(.separator), lineWidth: 1)
-                    )
-
-                VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 8) {
+            // Header: Status/Latex only (No Image)
+            VStack(alignment: .leading, spacing: 4) {
+                HStack {
                     Text(item.timestamp, style: .time)
                         .font(.caption)
                         .foregroundStyle(.secondary)
+                    Spacer()
+                }
 
-                    switch item.state {
-                    case .processing:
+                switch item.state {
+                case .processing:
+                    HStack {
+                        ProgressView()
+                            .scaleEffect(0.8)
                         Text("Recognizing...")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
-                    case let .success(latex, _):
-                        LatexWebView(latex: latex)
-                            .frame(height: 90)
-                    case let .failure(message):
-                        Text(message)
-                            .font(.subheadline)
-                            .foregroundStyle(.red)
                     }
+                    .padding(.vertical, 4)
+                    
+                case let .success(latex, _):
+                    LatexWebView(latex: latex)
+                        .frame(minHeight: 60)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                case let .failure(message):
+                    Text(message)
+                        .font(.subheadline)
+                        .foregroundStyle(.red)
+                        .padding(.vertical, 4)
                 }
             }
 
-            switch item.state {
-            case .success:
-                HStack(spacing: 12) {
+            // Actions
+            if case .success = item.state {
+                HStack {
                     Button(action: onCopy) {
                         Label("Copy", systemImage: "doc.on.doc")
+                            .font(.caption)
                     }
+                    .buttonStyle(.borderless)
+                    
+                    Spacer()
+                    
                     Button(action: onSend) {
-                        Label("Send", systemImage: "paperplane")
+                        Label("Insert", systemImage: "arrow.down.to.line")
+                            .font(.caption)
                     }
+                    .buttonStyle(.bordered)
+                    .tint(.blue)
+                    .controlSize(.small)
                 }
-                .labelStyle(.titleAndIcon)
-                .font(.subheadline)
-            case .failure:
+                .padding(.top, 4)
+            } else if case .failure = item.state {
                 Button(action: onRetry) {
                     Label("Retry", systemImage: "arrow.clockwise")
                 }
-                .font(.subheadline)
-            case .processing:
-                EmptyView()
+                .buttonStyle(.bordered)
             }
+            
+            Divider()
+                .padding(.top, 8)
         }
-        .padding(12)
-        .background(cardBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color(.separator), lineWidth: 1)
-        )
-    }
-
-    private var cardBackground: Color {
-        switch item.state {
-        case .failure:
-            return Color(red: 1.0, green: 0.97, blue: 0.97)
-        default:
-            return Color(.systemBackground)
-        }
+        .padding(.horizontal, 16)
+        .padding(.top, 8)
     }
 }

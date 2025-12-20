@@ -9,17 +9,7 @@ struct FormulaListView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            if showsTitle {
-                Text("Formulas")
-                    .font(.headline)
-                    .foregroundStyle(.primary)
-            }
-
-            if items.isEmpty {
-                Text("No formulas yet.")
-                    .foregroundStyle(.secondary)
-                    .padding(.vertical, 16)
-            } else {
+            if !items.isEmpty {
                 ScrollView {
                     LazyVStack(spacing: 12) {
                         ForEach(items) { item in
