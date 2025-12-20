@@ -5,12 +5,15 @@ struct FormulaListView: View {
     let onCopy: (FormulaItem) -> Void
     let onSend: (FormulaItem) -> Void
     let onRetry: (FormulaItem) -> Void
+    var showsTitle: Bool = true
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Formulas")
-                .font(.headline)
-                .foregroundStyle(.primary)
+            if showsTitle {
+                Text("Formulas")
+                    .font(.headline)
+                    .foregroundStyle(.primary)
+            }
 
             if items.isEmpty {
                 Text("No formulas yet.")
@@ -32,5 +35,6 @@ struct FormulaListView: View {
                 }
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     }
 }
