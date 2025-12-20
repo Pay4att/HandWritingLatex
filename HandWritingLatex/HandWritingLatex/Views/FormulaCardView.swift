@@ -27,8 +27,9 @@ struct FormulaCardView: View {
 
                     switch item.state {
                     case .processing:
-                        ProgressView("Recognizing...")
-                            .progressViewStyle(.circular)
+                        Text("Recognizing...")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
                     case let .success(latex, _):
                         LatexWebView(latex: latex)
                             .frame(height: 90)

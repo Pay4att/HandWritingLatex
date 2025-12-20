@@ -3,7 +3,7 @@ SwiftUI code for the iPad client.
 ## Structure
 
 ```
-iPadOS-Swiftui/
+HandWritingLatex/
   App/
   Models/
   Services/
@@ -16,7 +16,7 @@ iPadOS-Swiftui/
 
 Open **Settings** in the app to set the OCR backend URL.
 
-Defaults live in `iPadOS-Swiftui/Utilities/AppConfig.swift`:
+Defaults live in `HandWritingLatex/Utilities/AppConfig.swift`:
 
 ```
 static let defaultOCRBaseURL = "http://<backend-ip>:8000"
