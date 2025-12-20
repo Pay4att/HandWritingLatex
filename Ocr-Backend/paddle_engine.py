@@ -29,12 +29,12 @@ def _extract_latex(output: Any) -> Optional[str]:
     if isinstance(first, str):
         return first.strip() or None
     if isinstance(first, dict):
-        for key in ("text", "latex", "result", "rec_text"):
+        for key in ("text", "latex", "result", "rec_formula"):
             value = first.get(key)
             if value:
                 return str(value).strip()
 
-    for attr in ("text", "latex", "result", "rec_text"):
+    for attr in ("text", "latex", "result", "rec_formula"):
         value = getattr(first, attr, None)
         if value:
             return str(value).strip()
